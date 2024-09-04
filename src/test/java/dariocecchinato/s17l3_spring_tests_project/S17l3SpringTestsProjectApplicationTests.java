@@ -2,14 +2,12 @@ package dariocecchinato.s17l3_spring_tests_project;
 
 import dariocecchinato.s17l3_spring_tests_project.Enum.Stato;
 import dariocecchinato.s17l3_spring_tests_project.Enum.StatoOrdine;
-import dariocecchinato.s17l3_spring_tests_project.entities.MenuData;
-import dariocecchinato.s17l3_spring_tests_project.entities.Ordine;
-import dariocecchinato.s17l3_spring_tests_project.entities.Pizza;
-import dariocecchinato.s17l3_spring_tests_project.entities.Tavolo;
+import dariocecchinato.s17l3_spring_tests_project.entities.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +16,35 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class S17l3SpringTestsProjectApplicationTests {
+
+	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(S17l3SpringTestsProjectApplication.class);
+
+	Menu menu= context.getBean(Menu.class);
+
+
+
+	@Test
+	void pizzaContext(){
+		Pizza salamiPizza = (Pizza) context.getBean("salamiPizza");
+		assertNotNull(salamiPizza);
+
+		List<Topping> toppings = salamiPizza.getToppings();
+
+		assertTrue(toppings.contains(context.getBean("tomato")));
+		assertTrue(toppings.contains(context.getBean("cheese")));
+		assertTrue(toppings.contains(context.getBean("salami")));
+
+		assertEquals(3, toppings.size());
+	}
+
+	@Test
+	void testContext (){
+		Menu menu= context.getBean(Menu.class);
+		Pizza pizzaTest = new Pizza("pizzaTest",5.00,200);
+		menu.addData(pizzaTest);
+		assertNotNull(menu);
+		assertEquals(pizzaTest,menu.getDatas().getLast());
+	}
 
 	@Test
 	void contextLoads() {
@@ -65,4 +92,6 @@ class S17l3SpringTestsProjectApplicationTests {
 				()->assertEquals(nutritionalInfo, pizza.getValoriNutrizionali())
 		);
 	}
+
+
 }
