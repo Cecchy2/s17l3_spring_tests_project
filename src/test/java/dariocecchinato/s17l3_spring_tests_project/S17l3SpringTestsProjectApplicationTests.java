@@ -18,34 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class S17l3SpringTestsProjectApplicationTests {
 
 	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(S17l3SpringTestsProjectApplication.class);
-
-	Menu menu= context.getBean(Menu.class);
-
-
-
-	@Test
-	void pizzaContext(){
-		Pizza salamiPizza = (Pizza) context.getBean("salamiPizza");
-		assertNotNull(salamiPizza);
-
-		List<Topping> toppings = salamiPizza.getToppings();
-
-		assertTrue(toppings.contains(context.getBean("tomato")));
-		assertTrue(toppings.contains(context.getBean("cheese")));
-		assertTrue(toppings.contains(context.getBean("salami")));
-
-		assertEquals(3, toppings.size());
-	}
-
-	@Test
-	void testContext (){
-		Menu menu= context.getBean(Menu.class);
-		Pizza pizzaTest = new Pizza("pizzaTest",5.00,200);
-		menu.addData(pizzaTest);
-		assertNotNull(menu);
-		assertEquals(pizzaTest,menu.getDatas().getLast());
-	}
-
+	
 	@Test
 	void contextLoads() {
 	}
@@ -92,6 +65,29 @@ class S17l3SpringTestsProjectApplicationTests {
 				()->assertEquals(nutritionalInfo, pizza.getValoriNutrizionali())
 		);
 	}
+	@Test
+	void testContext (){
+		Menu menu= context.getBean(Menu.class);
+		Pizza pizzaTest = new Pizza("pizzaTest",5.00,200);
+		menu.addData(pizzaTest);
+		assertNotNull(menu);
+		assertEquals(pizzaTest,menu.getDatas().getLast());
+	}
+
+	@Test
+	void pizzaContent(){
+
+		Pizza salamiPizza = (Pizza) context.getBean("salamiPizza");
+		assertNotNull(salamiPizza);
+		List<Topping> toppings = salamiPizza.getToppings();
+
+		assertTrue(toppings.contains(context.getBean("tomato")));
+		assertTrue(toppings.contains(context.getBean("cheese")));
+		assertTrue(toppings.contains(context.getBean("salami")));
+		assertEquals(3, toppings.size());
+	}
+
+
 
 
 }
