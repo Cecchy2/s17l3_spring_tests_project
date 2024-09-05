@@ -34,7 +34,6 @@ class S17l3SpringTestsProjectApplicationTests {
 		assertEquals(pizzaTest,menu.getDatas().getLast());
 		assertNotNull(menu);
 		assertTrue(pizzaTest.getToppings().contains(onions));
-
 	}
 
 	@Test
@@ -65,7 +64,6 @@ class S17l3SpringTestsProjectApplicationTests {
 
 	@Test
 	public void testCalcolaTotale() {
-
 		Tavolo tavolo = new Tavolo(1, 4, Stato.OCCUPATO);
 		List<MenuData>datas = new ArrayList<>();
 		MenuData pizza = new Pizza("Margherita", 4.99, 1104);
